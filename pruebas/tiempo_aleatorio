@@ -1,0 +1,24 @@
+import threading
+import time
+import random
+
+def tarea(id_hilo):
+    # Generamos un número aleatorio entre 0 y 3
+    tiempo_espera = random.uniform(0, 3)
+    print(f"Hilo {id_hilo} durmiendo {tiempo_espera:.2f} segundos.")
+    time.sleep(tiempo_espera)
+    print(f"Hilo {id_hilo} ha terminado.")
+
+def main():
+    hilos = []
+    for i in range(5):
+        hilo = threading.Thread(target=tarea, args=(i,))
+        hilo.start()
+        hilos.append(hilo)
+
+    # Esperamos a que todos los hilos terminen
+    for hilo in hilos:
+        hilo.join()
+
+if __name__ == "__main__":
+    main()
